@@ -31,10 +31,13 @@ function Contact(firstName, lastName, phoneNumber) {
   this.phoneNumber = phoneNumber;
 }
 // let testContact = new Contact("Ada", "Lovelace", "808-555-1111");
-
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 };
+// Contact.prototype.update = function() {
+//   return this.contact.update();
+// } PAUSE ON THIS FUNCTION> CONFUSED>
+
 // let addressBook = new AddressBook();
 // let contact = new Contact("Ada", "Lovelace", "503-555-0100");
 // let contact2 = new Contact("Grace", "Hopper", "503-555-0199");
@@ -45,3 +48,21 @@ Contact.prototype.fullName = function() {
 // "1"
 // > typeof Object.keys(addressBook.contacts)[0];
 // "string"
+
+//User Interface Logic
+//global variable-exception to mimic database
+let addressBook = new AddressBook();
+
+function handleFormSubmission(event) {
+  event.preventDefault();
+  const inputtedFirstName = document.querySelector("input#new-first-name").value;
+  const inputtedLastName = document.querySelector("input#new-last-name").value;
+  const inputtedPhoneNumber = document.querySelector("input#new-phone-number").value;
+  let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
+  addressBook.addContact(newContact);
+  console.log(addressBook.contacts);
+}
+
+window.addEventListener("load", function() {
+  document.querySelector("form#new-contact").addEventListener("submit", handleFormSubmission);
+});
