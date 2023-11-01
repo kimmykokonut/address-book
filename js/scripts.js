@@ -65,6 +65,23 @@ function listContacts(addressBookToDisplay) {
     ul.append(li);
   });
   contactsDiv.append(ul);
+}
+function handleDelete(event) {
+  addressBook.deleteContact(event.target.id); //deletes contact obj.
+  document.querySelector("button.delete").removeAttribute("id"); //resets button by removing id# optional code.
+  document.querySelector("div#contact-details").setAttribute("class", "hidden"); //hiding contactdetails div again
+  listContacts(addressBook); //call listContact f() to refresh list contacts
+}
+
+function displayContactDetails(event) {
+  // console.log("The id of this <li> is " + event.target.id + ".");
+  const contact = addressBook.findContact(event.target.id);
+  document.querySelector("#first-name").innerText = contact.firstName;
+  document.querySelector("#last-name").innerText = contact.lastName;
+  document.querySelector("#phone-number").innerText = contact.phoneNumber;
+  document.querySelector("button.delete").setAttribute("id", contact.id);
+  document.querySelector("div#contact-details").removeAttribute("class");
+}
 
 function handleFormSubmission(event) {
   event.preventDefault();
@@ -79,4 +96,6 @@ function handleFormSubmission(event) {
 
 window.addEventListener("load", function() {
   document.querySelector("form#new-contact").addEventListener("submit", handleFormSubmission);
+  document.querySelector("div#contacts").addEventListener("click", displayContactDetails);
+  this.document.querySelector("button.delete").addEventListener("click", handleDelete);
 }); 
