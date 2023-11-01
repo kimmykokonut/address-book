@@ -90,12 +90,14 @@ function handleFormSubmission(event) {
   const inputtedPhoneNumber = document.querySelector("input#new-phone-number").value;
   let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
   addressBook.addContact(newContact);
-  // console.log(addressBook.contacts);
   listContacts(addressBook); //ea time add new contact, page will update and contacts info updated to page
+  document.querySelector("input#new-first-name").value = null;
+  document.querySelector("input#new-last-name").value = null;
+  document.querySelector("input#new-phone-number").value = null;
 }
 
 window.addEventListener("load", function() {
   document.querySelector("form#new-contact").addEventListener("submit", handleFormSubmission);
   document.querySelector("div#contacts").addEventListener("click", displayContactDetails);
-  this.document.querySelector("button.delete").addEventListener("click", handleDelete);
+  document.querySelector("button.delete").addEventListener("click", handleDelete);
 }); 
